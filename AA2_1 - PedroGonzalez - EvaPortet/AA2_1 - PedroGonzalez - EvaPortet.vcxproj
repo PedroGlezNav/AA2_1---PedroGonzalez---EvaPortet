@@ -129,19 +129,22 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
+    <ClInclude Include="ConsoleControl.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Includes.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Lance.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MiddleCenter.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="ConsoleControl.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

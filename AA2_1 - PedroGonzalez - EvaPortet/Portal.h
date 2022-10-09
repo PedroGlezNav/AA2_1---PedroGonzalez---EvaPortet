@@ -6,7 +6,12 @@ class Portal
 {
 public:
 	int x, y;
-	Map *nextMap;
+	int nextMap;
 
-	void checkPlayer(Player& player);
+	bool checkPlayer(Player player) {
+		if (player.x == this->x && player.y == this->y) {
+			return true;
+		}
+		return false;
+	}
 };

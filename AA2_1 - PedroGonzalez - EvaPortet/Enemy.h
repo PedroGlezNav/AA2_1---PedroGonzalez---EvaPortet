@@ -19,10 +19,6 @@ public:
 
 	}
 
-	void Move() override {
-
-	}
-
 	void Damage() override {
 
 	}
