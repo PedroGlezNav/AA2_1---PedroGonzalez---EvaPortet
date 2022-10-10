@@ -8,7 +8,7 @@ class GameManager {
 public:
 	std::vector<Map*> maps;
 	InputManager* inputManager = new InputManager();
-	std::thread* keyListenerThread = new std::thread(&InputManager::startListening, inputManager);
+	
 	ConsoleControl consoleControl;
 
 	int currentMap;
@@ -21,7 +21,8 @@ public:
 	void Update(Player& player) {
 
 		//Update for the Player:
-		//keyListenerThread->join();
+		std::thread* keyListenerThread = new std::thread(&InputManager::startListening, inputManager);
+		
 		if (player.actionTime + 1 == time(NULL)) {
 			switch (inputManager->lastInput()) {
 			case KB_UP:
@@ -56,6 +57,9 @@ public:
 			//Update for the Chests:
 			
 			//Update for the Drops:
+
+			//El detach va al final burro:
+			keyListenerThread->detach();
 		}
 	}
 
@@ -81,6 +85,9 @@ public:
 		std::cout << "Weapon: " << player.currentWeapon.name;
 		std::cout << "X: " << player.x;
 		std::cout << "Y: " << player.y;*/
+
+		std::cout << "Lifes: " << player.lives << " - ";
+		std::cout << "Potions: " << player.potions << " - ";
 
 		//Draw for the Player:
 		
