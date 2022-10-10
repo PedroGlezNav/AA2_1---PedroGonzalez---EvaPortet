@@ -6,5 +6,6 @@ public:
     Lance() {
         damage = 1;
         range = 2;
+        name = "Lance";
     }
 };

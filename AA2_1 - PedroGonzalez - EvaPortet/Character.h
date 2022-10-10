@@ -7,7 +7,7 @@ public:
 	int x, y;
 	int lives;
 	int actionTime;
-	char icon;
+	char icon = 0;
 
 	Character() {
 		x = 0;

@@ -38,15 +38,17 @@ void main() {
 	player.actionTime = time(NULL);
 
 	while (!player.isDead) {
+		
 		if (!gameManager.maps.empty()) {
 
 			//Change scene?
 			if (gameManager.maps[gameManager.currentMap]->PlayerEnteredPortal(player)) {
-				gameManager.currentMap = gameManager.maps[gameManager.currentMap]->MapToChange();
+
+				gameManager.Start();
 			}
 
 			//Draw:
-			gameManager.Draw();
+			gameManager.Draw(player);
 
 			//Update scene:
 			gameManager.Update(player);

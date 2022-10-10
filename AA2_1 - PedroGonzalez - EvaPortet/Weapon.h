@@ -8,4 +8,5 @@ public:
 
 	int damage;
 	int range;
+	std::string name;
 };

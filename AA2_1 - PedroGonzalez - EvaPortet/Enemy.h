@@ -5,10 +5,11 @@
 
 class Enemy : public Character {
 public:
-	Drop drop;
+	Drop::Type drop;
 
 	Enemy() : Character() {
-		drop.type = Drop::Type::Unknown;
+		drop = Drop::Type::Unknown;
+		icon = 'E';
 	}
 
 	void Attack() override {

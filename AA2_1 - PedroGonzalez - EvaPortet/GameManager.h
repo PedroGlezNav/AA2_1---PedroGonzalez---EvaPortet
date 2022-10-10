@@ -9,6 +9,7 @@ public:
 	std::vector<Map*> maps;
 	InputManager* inputManager = new InputManager();
 	std::thread* keyListenerThread = new std::thread(&InputManager::startListening, inputManager);
+	ConsoleControl consoleControl;
 
 	int currentMap;
 	int lastMap;
@@ -20,8 +21,8 @@ public:
 	void Update(Player& player) {
 
 		//Update for the Player:
-		keyListenerThread->join();
-		if (player.actionTime + 200 == time(NULL)) {
+		//keyListenerThread->join();
+		if (player.actionTime + 1 == time(NULL)) {
 			switch (inputManager->lastInput()) {
 			case KB_UP:
 			{
@@ -43,6 +44,11 @@ public:
 				player.Move(Character::Directions::DOWN);
 				break;
 			}
+			case KB_SPACE:
+			{
+				player.Heal();
+				break;
+			}
 			}
 
 			//Update for the Enemies:
@@ -53,14 +59,28 @@ public:
 		}
 	}
 
-	void Draw() {
+	void Draw(Player& player) {
 
 		//Draw for the Map:
 		if (currentMap != lastMap) {
 			lastMap = currentMap;
+			//system("CLS");
 			maps[currentMap]->Draw(true);
 		}
 		maps[currentMap]->Draw(false);
+
+		//ACTUALIZAR PANTALLA POR LOS OBJETOS DINAMICOS
+		
+		//Usar consoleControl.SetPosition(); para dibujar solo una casilla.
+
+		//Draw for the UI: METER TODO EN UNA FUNCIÓN
+		/*system("CLS");
+		std::cout << "Coins: " << player.coins << " - ";
+		std::cout << "Lifes: " << player.lives << " - ";
+		std::cout << "Potions: " << player.potions << " - ";
+		std::cout << "Weapon: " << player.currentWeapon.name;
+		std::cout << "X: " << player.x;
+		std::cout << "Y: " << player.y;*/
 
 		//Draw for the Player:
 		
@@ -71,7 +91,9 @@ public:
 		//Draw for the Drops:
 	}
 
-	void Start(Map currentMap, bool isPlaying) {
-
+	void Start() {
+		currentMap = maps[currentMap]->MapToChange();
+		maps[currentMap]->enemySpawnTime = time(NULL);
+		maps[currentMap]->chestSpawnTime = time(NULL);
 	}
 };

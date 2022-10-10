@@ -12,11 +12,12 @@ public:
 	bool isDead;
 
 	Player() : Character() {
-		potions = 0;
+		potions = 1;
 		coins = 0;
 		isDead = false;
 		x = 3;
 		y = 3;
+		icon = 'J';
 	}
 
 	void Attack() override {
@@ -35,7 +36,13 @@ public:
 
 	}
 
-	void Heal(int &lives) {
-
+	void Heal() {
+		if (potions > 0) {
+			potions--;
+			lives++;
+		}
+		else {
+			return;
+		}
 	}
 };

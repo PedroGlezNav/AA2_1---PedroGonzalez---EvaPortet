@@ -4,13 +4,16 @@
 #include "Drop.h"
 
 class Chest {
+public:
 	int x, y;
-	Drop drop;
+	Drop::Type drop;
+	char icon;
 
 	Chest() {
 		x = 0;
 		y = 0;
-		drop.type = Drop::Type::Unknown;
+		drop = Drop::Type::Unknown;
+		icon = 'C';
 	}
 
 	void Drop() {
