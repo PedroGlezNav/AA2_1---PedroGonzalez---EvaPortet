@@ -26,6 +26,9 @@ public:
 										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
 										{ '#', '#', '#', '#', ' ', '#', '#', '#', '#'} };
 
+	//EN VEZ DE PINTAR CHARS LLAMAR A PINTAR NODOS CON POSICIÓN Y CHAR.
+
+
 	int collidedPortal;
 	int enemySpawnTime;
 	int chestSpawnTime;
