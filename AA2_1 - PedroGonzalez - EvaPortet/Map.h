@@ -25,7 +25,7 @@ public:
 	int enemySpawnTime;
 	int chestSpawnTime;
 
-	Map() {
+	/*Map() {
 		//PENSAR MÁS EN ELLO:
 		for (int iterRows = 0; iterRows < ROWS; iterRows++) {
 			Node newNodeVector;
@@ -34,7 +34,7 @@ public:
 			}
 			map[ROWS].push_back(newNodeVector);
 		}
-	}
+	}*/
 
 	void DrawMap(bool changedMap, ConsoleControl& consoleControl) {
 		if (changedMap) {

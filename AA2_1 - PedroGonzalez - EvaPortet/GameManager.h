@@ -21,7 +21,7 @@ public:
 		//Update for the Player:
 		std::thread* keyListenerThread = new std::thread(&InputManager::startListening, inputManager);
 		
-		if (player.actionTime + 1 == time(NULL)) {
+		if (player.actionTime + 1 <= time(NULL)) {
 			switch (inputManager->lastInput()) {
 			case KB_UP:
 			{
@@ -57,7 +57,7 @@ public:
 			//Update for the Drops:
 
 			//El detach va al final burro:
-			keyListenerThread->detach();
+ 			keyListenerThread->detach();
 		}
 	}
 

@@ -48,12 +48,12 @@ void main() {
 
 				gameManager.Start();
 			}
+			
+			//Update scene:
+			gameManager.Update(player);
 
 			//Draw:
 			gameManager.Draw(player, consoleControl);
-
-			//Update scene:
-			gameManager.Update(player);
 		}
 
 		else {
