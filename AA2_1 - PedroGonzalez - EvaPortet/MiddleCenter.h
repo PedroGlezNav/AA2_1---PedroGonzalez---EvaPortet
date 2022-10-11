@@ -31,6 +31,4 @@ public:
 		down->nextMap = 7; //The Down Center Map set in Main.
 		portals.push_back(down);
 	}
-
-
 };

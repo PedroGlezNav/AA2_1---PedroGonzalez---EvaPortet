@@ -7,9 +7,11 @@
 #include "Enemy.h"
 #include "Portal.h"
 #include "Chest.h"
+#include "ConsoleControl.h"
 
 void main() {
 	GameManager gameManager;
+	ConsoleControl consoleControl;
 
 	MiddleCenter middleCenter;
 	//TopLeft topLeft
@@ -48,7 +50,7 @@ void main() {
 			}
 
 			//Draw:
-			gameManager.Draw(player);
+			gameManager.Draw(player, consoleControl);
 
 			//Update scene:
 			gameManager.Update(player);

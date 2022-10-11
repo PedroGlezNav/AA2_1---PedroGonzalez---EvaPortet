@@ -5,6 +5,8 @@
 #include "Chest.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Node.h"
+#include "ConsoleControl.h"
 
 #define ROWS 8
 #define COLS 8
@@ -12,34 +14,61 @@
 class Map
 {
 public:
-	std::vector<Portal*> portals; //(2-4)
-	std::vector<Chest*> chests; //(x)
-	std::vector<Enemy*> enemies; //(x)
-	std::vector<Drop*> drops; //(x)
-	std::vector<std::vector<char>> map{ { '#', '#', '#', '#', ' ', '#', '#', '#', '#'},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-										{ '#', '#', '#', '#', ' ', '#', '#', '#', '#'} };
+	std::vector<Portal*> portals; //(2 to 4)
+	std::vector<Enemy*> enemies; //(0 to 5)
+	std::vector<Chest*> chests; //(0 to 3)
+	std::vector<Drop*> drops; //(When chests open or eemies Die)
 
-	//EN VEZ DE PINTAR CHARS LLAMAR A PINTAR NODOS CON POSICIÓN Y CHAR.
-
+	std::vector<std::vector<Node>> map;
 
 	int collidedPortal;
 	int enemySpawnTime;
 	int chestSpawnTime;
 
-	void Draw(bool changedMap) {
+	Map() {
+		//PENSAR MÁS EN ELLO:
+		for (int iterRows = 0; iterRows < ROWS; iterRows++) {
+			Node newNodeVector;
+			for (int iterCols = 0; iterCols < COLS; iterCols++) {
+				
+			}
+			map[ROWS].push_back(newNodeVector);
+		}
+	}
+
+	void DrawMap(bool changedMap, ConsoleControl& consoleControl) {
 		if (changedMap) {
 			for (auto row : map) {
 				for (auto col : row) {
-					std::cout << col;
+					col.Draw(consoleControl);
 				}
 				std::cout << "\n";
+			}
+		}
+	}
+
+	void DrawDynamics(ConsoleControl& consoleControl) {
+		if (!enemies.empty()) {
+			for (auto iter : enemies) {
+				iter->Draw(consoleControl);
+			}
+		}
+
+		if (!chests.empty()) {
+			for (auto iter : chests) {
+				iter->Draw(consoleControl);
+			}
+		}
+
+		if (!portals.empty()) {
+			for (auto iter : portals) {
+				iter->Draw(consoleControl);
+			}
+		}
+
+		if (!drops.empty()) {
+			for (auto iter : drops) {
+				iter->Draw(consoleControl);
 			}
 		}
 	}
@@ -71,12 +100,28 @@ public:
 		}
 	}
 
-	void AddNewChest() {
+	void AddNewChest(Player& player) {
 		if (chestSpawnTime + 100 == time(NULL) && chests.size() < 3) {
 			Chest newChest;
 			newChest.drop = (Drop::Type)(rand() % 3 + 0);
-			//newChest.x
-			//newChest.y
+
+			switch (rand() % 2 + 1) {
+			case 1: //Spawn to the left of Player:
+				newChest.x = rand() % (player.x - 1) + 1;
+				break;
+			case 2: //Spawn to the right of Player:
+				newChest.x = rand() % ROWS + (player.x + 1);
+				break;
+			}
+
+			switch (rand() % 2 + 1) {
+			case 1: //Spawn over Player:
+				newChest.y = rand() % (player.y - 1) + 1;
+				break;
+			case 2: //Spawn under Player:
+				newChest.y = rand() % COLS + (player.y + 1);
+				break;
+			}
 		}
 	}
 

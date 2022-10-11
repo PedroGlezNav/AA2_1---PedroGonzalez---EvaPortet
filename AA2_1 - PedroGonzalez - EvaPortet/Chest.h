@@ -16,7 +16,12 @@ public:
 		icon = 'C';
 	}
 
+	void Draw(ConsoleControl& consoleControl) {
+		consoleControl.SetPosition(x, y);
+		std::cout << icon;
+	}
+	
 	void Drop() {
-
+		drop = (Drop::Type)(rand() % 3 + 0);
 	}
 };

@@ -9,8 +9,6 @@ public:
 	std::vector<Map*> maps;
 	InputManager* inputManager = new InputManager();
 	
-	ConsoleControl consoleControl;
-
 	int currentMap;
 	int lastMap;
 
@@ -63,39 +61,23 @@ public:
 		}
 	}
 
-	void Draw(Player& player) {
+	void Draw(Player& player, ConsoleControl& consoleControl) {
 
 		//Draw for the Map:
 		if (currentMap != lastMap) {
 			lastMap = currentMap;
-			//system("CLS");
-			maps[currentMap]->Draw(true);
+			maps[currentMap]->DrawMap(true, consoleControl);
 		}
-		maps[currentMap]->Draw(false);
-
-		//ACTUALIZAR PANTALLA POR LOS OBJETOS DINAMICOS
-		
-		//Usar consoleControl.SetPosition(); para dibujar solo una casilla.
-
-		//Draw for the UI: METER TODO EN UNA FUNCIÓN
-		/*system("CLS");
-		std::cout << "Coins: " << player.coins << " - ";
-		std::cout << "Lifes: " << player.lives << " - ";
-		std::cout << "Potions: " << player.potions << " - ";
-		std::cout << "Weapon: " << player.currentWeapon.name;
-		std::cout << "X: " << player.x;
-		std::cout << "Y: " << player.y;*/
-
-		std::cout << "Lifes: " << player.lives << " - ";
-		std::cout << "Potions: " << player.potions << " - ";
+		maps[currentMap]->DrawMap(false, consoleControl);
 
 		//Draw for the Player:
-		
-		//Draw for the Enemies:
-		
-		//Draw for the Chests:
-		
-		//Draw for the Drops:
+		player.Draw(consoleControl);
+
+		//Draw for the Enemies, Chests, Drops & Portals:
+		maps[currentMap]->DrawDynamics(consoleControl);
+
+		//Draw for the UI:
+		player.DrawInventory();
 	}
 
 	void Start() {

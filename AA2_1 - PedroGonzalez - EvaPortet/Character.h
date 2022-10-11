@@ -1,6 +1,8 @@
 #pragma once
 #include "Includes.h"
 
+#include "ConsoleControl.h"
+
 class Character {
 public:
 	enum Directions { UP, DOWN, LEFT, RIGHT };
@@ -36,8 +38,9 @@ public:
 		}
 	}
 
-	void Draw() {
-
+	void Draw(ConsoleControl& consoleControl) {
+		consoleControl.SetPosition(x, y);
+		std::cout << icon;
 	}
 
 	virtual void Damage() = 0;

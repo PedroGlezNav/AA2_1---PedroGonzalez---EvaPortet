@@ -20,6 +20,15 @@ public:
 		icon = 'J';
 	}
 
+	void DrawInventory() {
+		std::cout << "Coins: " << coins << " - ";
+		std::cout << "Lifes: " << lives << " - ";
+		std::cout << "Potions: " << potions << " - ";
+		std::cout << "Weapon: " << currentWeapon.name << " - ";
+		std::cout << "X: " << x << " - ";
+		std::cout << "Y: " << y << " - ";
+	}
+
 	void Attack() override {
 
 	}

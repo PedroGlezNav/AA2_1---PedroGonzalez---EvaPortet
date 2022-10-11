@@ -138,6 +138,7 @@
     <ClInclude Include="Lance.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MiddleCenter.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Sword.h" />
