@@ -130,6 +130,9 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
     <ClInclude Include="ConsoleControl.h" />
+    <ClInclude Include="DownCenter.h" />
+    <ClInclude Include="DownLeft.h" />
+    <ClInclude Include="DownRight.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameManager.h" />
@@ -138,10 +141,15 @@
     <ClInclude Include="Lance.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MiddleCenter.h" />
+    <ClInclude Include="MiddleLeft.h" />
+    <ClInclude Include="MiddleRight.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Sword.h" />
+    <ClInclude Include="TopCenter.h" />
+    <ClInclude Include="TopLeft.h" />
+    <ClInclude Include="TopRight.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
