@@ -7,6 +7,7 @@ class Character {
 public:
 	enum Directions { UP, DOWN, LEFT, RIGHT };
 	int x, y;
+	int lastX, lastY;
 	int lives;
 	int actionTime;
 	char icon = 0;
@@ -14,6 +15,8 @@ public:
 	Character() {
 		x = 0;
 		y = 0;
+		lastX = 0;
+		lastY = 0;
 
 		lives = 1;
 		actionTime = 0;
@@ -24,6 +27,9 @@ public:
 	virtual void Die() = 0;
 
 	void Move(Character::Directions direction) {
+		lastX = x;
+		lastY = y;
+
 		if (direction == Character::Directions::UP) {
 			y--;
 		}
@@ -39,6 +45,8 @@ public:
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
+		consoleControl.SetPosition(lastX, lastY);
+		std::cout << ' ';
 		consoleControl.SetPosition(x, y);
 		std::cout << icon;
 	}

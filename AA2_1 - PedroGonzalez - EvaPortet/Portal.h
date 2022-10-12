@@ -6,6 +6,7 @@ class Portal
 {
 public:
 	int x, y;
+	int xPlayerSpawn, yPlayerSpawn;
 	int nextMap;
 	char icon = 'P';
 

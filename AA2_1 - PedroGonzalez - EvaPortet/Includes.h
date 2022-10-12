@@ -6,3 +6,6 @@
 #include <mutex>
 #include <ctime>
 #include <stdlib.h>
+
+#define ROWS 8
+#define COLS 8

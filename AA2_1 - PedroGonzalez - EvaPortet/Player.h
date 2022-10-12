@@ -20,7 +20,8 @@ public:
 		icon = 'J';
 	}
 
-	void DrawInventory() {
+	void DrawInventory(ConsoleControl& consoleControl) {
+		consoleControl.SetPosition(0, ROWS + 2);
 		std::cout << "Coins: " << coins << " - ";
 		std::cout << "Lifes: " << lives << " - ";
 		std::cout << "Potions: " << potions << " - ";

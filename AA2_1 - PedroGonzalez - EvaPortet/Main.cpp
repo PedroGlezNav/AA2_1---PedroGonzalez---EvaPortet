@@ -2,7 +2,15 @@
 
 #include "GameManager.h"
 #include "Map.h"
+#include "TopLeft.h"
+#include "TopCenter.h"
+#include "TopRight.h"
+#include "MiddleLeft.h"
 #include "MiddleCenter.h"
+#include "MiddleRight.h"
+#include "DownLeft.h"
+#include "DownCenter.h"
+#include "DownRight.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Portal.h"
@@ -14,26 +22,26 @@ void main() {
 	ConsoleControl consoleControl;
 
 	MiddleCenter middleCenter;
-	//TopLeft topLeft
-	//TopCenter topCenter
-	//TopRight topRight
-	//MiddleLeft middleLeft
-	//MiddleRight middleRight
-	//DownLeft downLeft
-	//DownCenter downCenter
-	//DownRight downRight
+	TopLeft topLeft;
+	TopCenter topCenter;
+	TopRight topRight;
+	MiddleLeft middleLeft;
+	MiddleRight middleRight;
+	DownLeft downLeft;
+	DownCenter downCenter;
+	DownRight downRight;
 
+	gameManager.maps.push_back(&topLeft);
+	gameManager.maps.push_back(&topCenter);
+	gameManager.maps.push_back(&topRight);
+	gameManager.maps.push_back(&middleLeft);
 	gameManager.maps.push_back(&middleCenter);
-	//gameManager.maps.(&topLeft);
-	//gameManager.maps.(&topCenter);
-	//gameManager.maps.(&topRight);
-	//gameManager.maps.(&middleLeft);
-	//gameManager.maps.(&middleRight);
-	//gameManager.maps.(&downLeft);
-	//gameManager.maps.(&downCenter);
-	//gameManager.maps.(&downRight);
+	gameManager.maps.push_back(&middleRight);
+	gameManager.maps.push_back(&downLeft);
+	gameManager.maps.push_back(&downCenter);
+	gameManager.maps.push_back(&downRight);
 
-	gameManager.currentMap = 0;
+	gameManager.currentMap = 4;
 	gameManager.lastMap = 1;
 
 	Player player;
@@ -45,7 +53,6 @@ void main() {
 
 			//Change scene?
 			if (gameManager.maps[gameManager.currentMap]->PlayerEnteredPortal(player)) {
-
 				gameManager.Start();
 			}
 			
@@ -61,4 +68,6 @@ void main() {
 			return;
 		}
 	}
+
+	gameManager.End();
 }

@@ -12,8 +12,12 @@ public:
 	int currentMap;
 	int lastMap;
 
-	void End() {
+	void End() {}
 
+	void Start() {
+		currentMap = maps[currentMap]->MapToChange();
+		maps[currentMap]->enemySpawnTime = time(NULL);
+		maps[currentMap]->chestSpawnTime = time(NULL);
 	}
 
 	void Update(Player& player) {
@@ -25,22 +29,30 @@ public:
 			switch (inputManager->lastInput()) {
 			case KB_UP:
 			{
-				player.Move(Character::Directions::UP);
+				if (maps[currentMap]->map[player.x][player.y - 1]->icon != '#') {
+					player.Move(Character::Directions::UP);
+				}
 				break;
 			}
 			case KB_LEFT:
 			{
-				player.Move(Character::Directions::LEFT);
+				if (maps[currentMap]->map[player.x - 1][player.y]->icon != '#') {
+					player.Move(Character::Directions::LEFT);
+				}
 				break;
 			}
 			case KB_RIGHT:
 			{
-				player.Move(Character::Directions::RIGHT);
+				if (maps[currentMap]->map[player.x + 1][player.y]->icon != '#') {
+					player.Move(Character::Directions::RIGHT);
+				}
 				break;
 			}
 			case KB_DOWN:
 			{
-				player.Move(Character::Directions::DOWN);
+				if (maps[currentMap]->map[player.x][player.y + 1]->icon != '#') {
+					player.Move(Character::Directions::DOWN);
+				}
 				break;
 			}
 			case KB_SPACE:
@@ -66,9 +78,8 @@ public:
 		//Draw for the Map:
 		if (currentMap != lastMap) {
 			lastMap = currentMap;
-			maps[currentMap]->DrawMap(true, consoleControl);
+			maps[currentMap]->DrawMap(consoleControl);
 		}
-		maps[currentMap]->DrawMap(false, consoleControl);
 
 		//Draw for the Player:
 		player.Draw(consoleControl);
@@ -77,12 +88,6 @@ public:
 		maps[currentMap]->DrawDynamics(consoleControl);
 
 		//Draw for the UI:
-		player.DrawInventory();
-	}
-
-	void Start() {
-		currentMap = maps[currentMap]->MapToChange();
-		maps[currentMap]->enemySpawnTime = time(NULL);
-		maps[currentMap]->chestSpawnTime = time(NULL);
+		player.DrawInventory(consoleControl);
 	}
 };

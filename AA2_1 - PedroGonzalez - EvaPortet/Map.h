@@ -8,43 +8,58 @@
 #include "Node.h"
 #include "ConsoleControl.h"
 
-#define ROWS 8
-#define COLS 8
-
 class Map
 {
 public:
+	std::string name;
+
 	std::vector<Portal*> portals; //(2 to 4)
 	std::vector<Enemy*> enemies; //(0 to 5)
 	std::vector<Chest*> chests; //(0 to 3)
 	std::vector<Drop*> drops; //(When chests open or eemies Die)
 
-	std::vector<std::vector<Node>> map;
+	std::vector<std::vector<Node*>> map;
 
 	int collidedPortal;
 	int enemySpawnTime;
 	int chestSpawnTime;
 
-	/*Map() {
-		//PENSAR MÁS EN ELLO:
-		for (int iterRows = 0; iterRows < ROWS; iterRows++) {
-			Node newNodeVector;
-			for (int iterCols = 0; iterCols < COLS; iterCols++) {
-				
-			}
-			map[ROWS].push_back(newNodeVector);
-		}
-	}*/
+	Map() {
+		for (int iR = 0; iR < ROWS + 1; iR++) {
 
-	void DrawMap(bool changedMap, ConsoleControl& consoleControl) {
-		if (changedMap) {
-			for (auto row : map) {
-				for (auto col : row) {
-					col.Draw(consoleControl);
+			std::vector<Node*> newNodeVector;
+
+			for (int iC = 0; iC < COLS + 1; iC++) {
+
+				Node* newNode = new Node();
+
+				if (iR == 0 || iC == 0 || iR == ROWS || iC == COLS) {
+					newNode->x = iR;
+					newNode->y = iC;
+					newNode->icon = '#';
 				}
-				std::cout << "\n";
+				else {
+					newNode->x = iR;
+					newNode->y = iC;
+					newNode->icon = ' ';
+				}
+				
+				newNodeVector.push_back(newNode);
+			}
+
+			map.push_back(newNodeVector);
+		}
+	}
+
+	void DrawMap(ConsoleControl& consoleControl) {
+		system("CLS");
+		for (int iR = 0; iR < ROWS + 1; iR++) {
+			for (int iC = 0; iC < COLS + 1; iC++) {
+				map[iR][iC]->Draw(consoleControl);
 			}
 		}
+		consoleControl.SetPosition(0, COLS + 3);
+		std::cout << name;
 	}
 
 	void DrawDynamics(ConsoleControl& consoleControl) {
@@ -125,9 +140,11 @@ public:
 		}
 	}
 
-	bool PlayerEnteredPortal(Player player) {
+	bool PlayerEnteredPortal(Player& player) {
 		for (int iter = 0; iter < portals.size(); iter++) {
 			if (portals[iter]->checkPlayer(player)) {
+				//player.x = ;
+				//player.y = ;
 				collidedPortal = iter;
 				return true;
 			}
