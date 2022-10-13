@@ -15,19 +15,21 @@ public:
 		potions = 1;
 		coins = 0;
 		isDead = false;
-		x = 3;
-		y = 3;
+		x = ROWS/2;
+		y = COLS/2;
 		icon = 'J';
 	}
 
 	void DrawInventory(ConsoleControl& consoleControl) {
-		consoleControl.SetPosition(0, ROWS + 2);
+		consoleControl.SetPosition(0, COLS + 3);
 		std::cout << "Coins: " << coins << " - ";
 		std::cout << "Lifes: " << lives << " - ";
 		std::cout << "Potions: " << potions << " - ";
 		std::cout << "Weapon: " << currentWeapon.name << " - ";
 		std::cout << "X: " << x << " - ";
-		std::cout << "Y: " << y << " - ";
+		std::cout << "Y: " << y;
+		consoleControl.SetPosition(0, COLS + 4);
+		std::cout << "Press Esc to exit the game.";
 	}
 
 	void Attack() override {

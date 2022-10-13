@@ -20,6 +20,7 @@ public:
 			case KB_LEFT:
 			case KB_RIGHT:
 			case KB_DOWN:
+			case KB_ESCAPE:
 			{
 				inputRead->push_back(key);
 				break;

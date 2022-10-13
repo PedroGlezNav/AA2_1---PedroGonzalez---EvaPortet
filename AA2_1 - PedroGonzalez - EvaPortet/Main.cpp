@@ -21,11 +21,11 @@ void main() {
 	GameManager gameManager;
 	ConsoleControl consoleControl;
 
-	MiddleCenter middleCenter;
 	TopLeft topLeft;
 	TopCenter topCenter;
 	TopRight topRight;
 	MiddleLeft middleLeft;
+	MiddleCenter middleCenter;
 	MiddleRight middleRight;
 	DownLeft downLeft;
 	DownCenter downCenter;

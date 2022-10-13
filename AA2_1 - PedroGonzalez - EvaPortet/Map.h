@@ -58,7 +58,7 @@ public:
 				map[iR][iC]->Draw(consoleControl);
 			}
 		}
-		consoleControl.SetPosition(0, COLS + 3);
+		consoleControl.SetPosition(0, COLS + 2);
 		std::cout << name;
 	}
 
@@ -143,8 +143,8 @@ public:
 	bool PlayerEnteredPortal(Player& player) {
 		for (int iter = 0; iter < portals.size(); iter++) {
 			if (portals[iter]->checkPlayer(player)) {
-				//player.x = ;
-				//player.y = ;
+				player.x = portals[iter]->xPlayerSpawn;
+				player.y = portals[iter]->yPlayerSpawn;
 				collidedPortal = iter;
 				return true;
 			}

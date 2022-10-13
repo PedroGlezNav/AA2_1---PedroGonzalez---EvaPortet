@@ -10,16 +10,20 @@ public:
 		name = "Down Right";
 
 		Portal* upper = new Portal();
-		upper->x = 4;
+		upper->x = ROWS / 2;
 		upper->y = 0;
-		upper->nextMap = 5; //The Middle Right Map set in Main.
+		upper->xPlayerSpawn = ROWS / 2;
+		upper->yPlayerSpawn = COLS - 1;
+		upper->nextMap = MIDDLE_RIGHT;
 		portals.push_back(upper);
 		map[4][0]->icon = ' ';
 
 		Portal* left = new Portal();
 		left->x = 0;
-		left->y = 4;
-		left->nextMap = 7; //The Down Center Map set in Main.
+		left->y = COLS / 2;
+		left->xPlayerSpawn = ROWS - 1;
+		left->yPlayerSpawn = COLS / 2;
+		left->nextMap = DOWN_CENTER;
 		portals.push_back(left);
 		map[0][4]->icon = ' ';
 	}
