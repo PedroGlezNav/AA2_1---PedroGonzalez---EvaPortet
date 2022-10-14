@@ -19,8 +19,4 @@ public:
 	void Die() override {
 
 	}
-
-	void GetDamage() override {
-
-	}
 };

@@ -42,16 +42,6 @@ public:
 		isDead = true;
 	}
 
-	void GetDamage() override {
-		if (lives > 1) {
-			lives--;
-		}
-		else {
-			lives = 0;
-			Die();
-		}
-	}
-
 	void GetItem(Drop gotDrop){
 		switch (gotDrop.type){
 		case Drop::Type::Coin: {

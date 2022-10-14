@@ -53,5 +53,13 @@ public:
 		std::cout << icon;
 	}
 
-	virtual void GetDamage() = 0;
+	void GetDamage() {
+		if (lives > 1) {
+			lives--;
+		}
+		else {
+			lives = 0;
+			Die();
+		}
+	}
 };
