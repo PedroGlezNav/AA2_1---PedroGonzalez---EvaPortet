@@ -20,7 +20,7 @@ public:
 
 	}
 
-	void Damage() override {
+	void GetDamage() override {
 
 	}
 };

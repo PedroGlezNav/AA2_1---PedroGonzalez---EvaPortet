@@ -45,10 +45,11 @@ void main() {
 	gameManager.lastMap = 1;
 
 	Player player;
+	srand(time(NULL));
 	player.actionTime = time(NULL);
 
-	while (!player.isDead) {
-		
+	while (!player.isDead && !gameManager.endGame) {
+
 		if (!gameManager.maps.empty()) {
 
 			//Change scene?

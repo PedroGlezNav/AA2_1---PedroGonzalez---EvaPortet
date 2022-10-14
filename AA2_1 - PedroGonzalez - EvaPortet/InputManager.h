@@ -5,7 +5,8 @@
 
 class InputManager {
 private:
-	std::vector<int>* inputRead = new std::vector<int>();
+	std::vector<int>* inputMovementRead = new std::vector<int>();
+	std::vector<int>* inputActionsRead = new std::vector<int>();
 public:
 	std::mutex* inputsReadMutex = new std::mutex();
 
@@ -15,14 +16,18 @@ public:
 
 			inputsReadMutex->lock();
 			switch (key) {
-			case KB_SPACE:
 			case KB_UP:
 			case KB_LEFT:
 			case KB_RIGHT:
 			case KB_DOWN:
+			{
+				inputMovementRead->push_back(key);
+				break;
+			}
+			case KB_SPACE:
 			case KB_ESCAPE:
 			{
-				inputRead->push_back(key);
+				inputActionsRead->push_back(key);
 				break;
 			}
 			}
@@ -30,36 +35,27 @@ public:
 		}
 	}
 
-	int lastInput() {
+	int lastMovementInput() {
 		inputsReadMutex->lock();
 		int lastInput = 0;
-		if (!inputRead->empty()) {
-			lastInput = inputRead->back();
-			inputRead->clear();
+		if (!inputMovementRead->empty()) {
+			lastInput = inputMovementRead->back();
+			inputMovementRead->clear();
 		}
 		inputsReadMutex->unlock();
 
 		return lastInput;
 	}
 
-	void passingTime() {
-
-	}
-
-	bool getKey(int keyCode) {
+	int lastActionInput() {
 		inputsReadMutex->lock();
-		bool isDetected = false;
-
-		if (!inputRead->empty()) {
-			for (int iter = 0; iter < inputRead->size(); iter++) {
-				if ((*inputRead)[iter] == keyCode) {
-					inputRead->erase(inputRead->begin() + iter);
-					isDetected = true;
-					iter--;
-				}
-			}
+		int lastInput = 0;
+		if (!inputActionsRead->empty()) {
+			lastInput = inputActionsRead->back();
+			inputActionsRead->clear();
 		}
 		inputsReadMutex->unlock();
-		return isDetected;
+
+		return lastInput;
 	}
 };

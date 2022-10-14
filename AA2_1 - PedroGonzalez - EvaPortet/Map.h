@@ -21,10 +21,16 @@ public:
 	std::vector<std::vector<Node*>> map;
 
 	int collidedPortal;
+	int collidedDrop;
+	int collidedChest;
+	int collidedEnemy;
+
 	int enemySpawnTime;
 	int chestSpawnTime;
 
 	Map() {
+
+		//Create the basic Node template:
 		for (int iR = 0; iR < ROWS + 1; iR++) {
 
 			std::vector<Node*> newNodeVector;
@@ -63,6 +69,7 @@ public:
 	}
 
 	void DrawDynamics(ConsoleControl& consoleControl) {
+
 		if (!enemies.empty()) {
 			for (auto iter : enemies) {
 				iter->Draw(consoleControl);
@@ -92,7 +99,6 @@ public:
 		if (enemySpawnTime + 100 == time(NULL) && enemies.size() < 5) {
 
 			Enemy newEnemy;
-			newEnemy.drop = (Drop::Type)(rand() % 3 + 0);
 			newEnemy.actionTime = time(NULL);
 
 			switch (rand() % 2 + 1) {
@@ -118,7 +124,6 @@ public:
 	void AddNewChest(Player& player) {
 		if (chestSpawnTime + 100 == time(NULL) && chests.size() < 3) {
 			Chest newChest;
-			newChest.drop = (Drop::Type)(rand() % 3 + 0);
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn to the left of Player:
@@ -141,12 +146,38 @@ public:
 	}
 
 	bool PlayerEnteredPortal(Player& player) {
-		for (int iter = 0; iter < portals.size(); iter++) {
-			if (portals[iter]->checkPlayer(player)) {
-				player.x = portals[iter]->xPlayerSpawn;
-				player.y = portals[iter]->yPlayerSpawn;
-				collidedPortal = iter;
-				return true;
+		if (!portals.empty()) {
+			for (int iter = 0; iter < portals.size(); iter++) {
+				if (portals[iter]->checkPlayer(player)) {
+					player.x = portals[iter]->xPlayerSpawn;
+					player.y = portals[iter]->yPlayerSpawn;
+					collidedPortal = iter;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	bool PlayerIsOnAnyDrop(int x, int y) {
+		if (!drops.empty()) {
+			for (int iter = 0; iter < drops.size(); iter++) {
+				if (drops[iter]->PlayerIsOnDrop(x,y)) {
+					collidedDrop = iter;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	bool PlayerCollidedChest(int x, int y) {
+		if (!chests.empty()) {
+			for (int iter = 0; iter < chests.size(); iter++) {
+				if (chests[iter]->PlayerAtacksChest(x, y)) {
+					collidedChest = iter;
+					return true;
+				}
 			}
 		}
 		return false;

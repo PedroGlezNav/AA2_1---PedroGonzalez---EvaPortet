@@ -42,6 +42,8 @@ public:
 		if (direction == Character::Directions::RIGHT) {
 			x++;
 		}
+
+		actionTime = time(NULL);
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
@@ -51,5 +53,5 @@ public:
 		std::cout << icon;
 	}
 
-	virtual void Damage() = 0;
+	virtual void GetDamage() = 0;
 };

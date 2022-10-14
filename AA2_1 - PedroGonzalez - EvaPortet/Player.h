@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
-#include "Weapon.h"
+#include "Sword.h"
+#include "Lance.h"
 #include "Drop.h"
 
 class Player : public Character {
@@ -12,12 +13,17 @@ public:
 	bool isDead;
 
 	Player() : Character() {
+		currentWeapon = Sword();
 		potions = 1;
 		coins = 0;
 		isDead = false;
 		x = ROWS/2;
 		y = COLS/2;
 		icon = 'J';
+	}
+
+	void Attack() override {
+
 	}
 
 	void DrawInventory(ConsoleControl& consoleControl) {
@@ -32,20 +38,35 @@ public:
 		std::cout << "Press Esc to exit the game.";
 	}
 
-	void Attack() override {
-
-	}
-
 	void Die() override {
-
+		isDead = true;
 	}
 
-	void Damage() override {
-
+	void GetDamage() override {
+		if (lives > 1) {
+			lives--;
+		}
+		else {
+			lives = 0;
+			Die();
+		}
 	}
 
-	void GetItem(Drop &gotDrop){
-
+	void GetItem(Drop gotDrop){
+		switch (gotDrop.type){
+		case Drop::Type::Coin: {
+			coins++;
+		}
+		break;
+		case Drop::Type::Lance: {
+			currentWeapon = Lance();
+		}
+		break;
+		case Drop::Type::Potion: {
+			potions++;
+		}
+		break;
+		}
 	}
 
 	void Heal() {

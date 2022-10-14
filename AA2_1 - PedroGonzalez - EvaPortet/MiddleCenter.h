@@ -2,7 +2,6 @@
 #include "Includes.h"
 
 #include "Map.h"
-#include "Portal.h"
 
 class MiddleCenter :public Map {
 public:
@@ -44,5 +43,20 @@ public:
 		down->nextMap = DOWN_CENTER;
 		portals.push_back(down);
 		map[4][8]->icon = ' ';
+
+		Chest* newChest = new Chest();
+		newChest->x = 1;
+		newChest->y = 1;
+		chests.push_back(newChest);
+
+		Chest* newChest2 = new Chest();
+		newChest2->x = 4;
+		newChest2->y = 1;
+		chests.push_back(newChest2);
+
+		Chest* newChest3 = new Chest();
+		newChest3->x = 7;
+		newChest3->y = 1;
+		chests.push_back(newChest3);
 	}
 };

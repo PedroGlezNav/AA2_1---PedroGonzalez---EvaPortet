@@ -3,19 +3,47 @@
 
 class Drop {
 public:
-	enum Type { Unknown = 0, Lance = 1, Coin = 2, Potion = 3 };
-	Type type = Unknown;
+	enum Type {  Potion = 0, Lance = 1, Coin = 2, Unknown = 3 };
+	Type type;
 
 	int x, y;
-	char icon = 0;
+	char icon;
 
 	Drop() {
 		x = 0;
 		y = 0;
+		icon = 0;
+		type = Type::Unknown;
+	}
+
+	void DefineIcon() {
+		switch (type) {
+		case Type::Coin: {
+			icon = 'C';
+		}
+		break;
+		case Type::Lance: {
+			icon = 'L';
+		}
+		break;
+		case Type::Potion: {
+			icon = 'P';
+		}
+		break;
+		}
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
 		consoleControl.SetPosition(x, y);
 		std::cout << icon;
+	}
+
+	bool PlayerIsOnDrop(int x, int y) {
+		if (this->x == x && this->y == y) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 };
