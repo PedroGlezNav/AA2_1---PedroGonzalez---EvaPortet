@@ -27,7 +27,7 @@ public:
 		//Update for the Player:
 		std::thread* keyListenerThread = new std::thread(&InputManager::startListening, inputManager);
 		
-		if (player.actionTime + 2 <= time(NULL)) {
+		if (player.actionTime + 1 <= time(NULL)) {
 			switch (inputManager->lastMovementInput()) {
 			case KB_UP: {
 				if (maps[currentMap]->PlayerCollidedChest(player.x, player.y - player.currentWeapon.range)) {

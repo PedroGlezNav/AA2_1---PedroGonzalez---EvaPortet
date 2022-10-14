@@ -30,7 +30,7 @@ public:
 		Portal* down = new Portal();
 		down->x = ROWS/2;
 		down->y = COLS;
-		down->xPlayerSpawn = ROWS/4;
+		down->xPlayerSpawn = ROWS/2;
 		down->yPlayerSpawn = 1;
 		down->nextMap = 4; //The Middle Center Map set in Main.
 		portals.push_back(down);
