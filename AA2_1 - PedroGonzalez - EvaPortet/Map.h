@@ -96,52 +96,55 @@ public:
 	}
 
 	void AddNewEnemies(Player &player) {
-		if (enemySpawnTime + 100 == time(NULL) && enemies.size() < 5) {
+		if (enemySpawnTime + 3 == time(NULL) && enemies.size() < 5) {
 
 			Enemy newEnemy;
 			newEnemy.actionTime = time(NULL);
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn to the left of Player:
-				newEnemy.x = rand() % (player.x - 1) + 1;
+				newEnemy.x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
 				break;
 			case 2: //Spawn to the right of Player:
-				newEnemy.x = rand() % ROWS + (player.x + 1);
+				newEnemy.x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
 				break;
 			}
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn over Player:
-				newEnemy.y = rand() % (player.y - 1) + 1;
+				newEnemy.y = rand() % ((player.y - 1) - (1) + 1) + (1);
 				break;
 			case 2: //Spawn under Player:
-				newEnemy.y = rand() % COLS + (player.y + 1);
+				newEnemy.y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
 				break;
 			}
 		}
 	}
 
 	void AddNewChest(Player& player) {
-		if (chestSpawnTime + 100 == time(NULL) && chests.size() < 3) {
-			Chest newChest;
+		if (chestSpawnTime + 30 <= time(NULL) && chests.size() < 3) {
+			Chest* newChest = new Chest();
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn to the left of Player:
-				newChest.x = rand() % (player.x - 1) + 1;
+				newChest->x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
 				break;
 			case 2: //Spawn to the right of Player:
-				newChest.x = rand() % ROWS + (player.x + 1);
+				newChest->x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
 				break;
 			}
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn over Player:
-				newChest.y = rand() % (player.y - 1) + 1;
+				newChest->y = rand() % ((player.y - 1) - (1) + 1) + (1);
 				break;
 			case 2: //Spawn under Player:
-				newChest.y = rand() % COLS + (player.y + 1);
+				newChest->y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
 				break;
 			}
+
+			chests.push_back(newChest);
+			chestSpawnTime = time(NULL);
 		}
 	}
 

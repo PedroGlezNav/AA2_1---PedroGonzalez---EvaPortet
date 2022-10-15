@@ -35,5 +35,10 @@ public:
 		down->nextMap = DOWN_LEFT;
 		portals.push_back(down);
 		map[4][8]->icon = ' ';
+
+		Chest* newChest = new Chest();
+		newChest->x = 1;
+		newChest->y = 7;
+		chests.push_back(newChest);
 	}
 };

@@ -35,5 +35,10 @@ public:
 		down->nextMap = 4; //The Middle Center Map set in Main.
 		portals.push_back(down);
 		map[4][8]->icon = ' ';
+
+		Chest* newChest = new Chest();
+		newChest->x = 7;
+		newChest->y = 1;
+		chests.push_back(newChest);
 	}
 };

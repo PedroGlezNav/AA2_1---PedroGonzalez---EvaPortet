@@ -30,7 +30,8 @@ public:
 		if (player.actionTime + 1 <= time(NULL)) {
 			switch (inputManager->lastMovementInput()) {
 			case KB_UP: {
-				if (maps[currentMap]->PlayerCollidedChest(player.x, player.y - player.currentWeapon.range)) {
+				if (maps[currentMap]->PlayerCollidedChest(player.x, player.y - player.currentWeapon.range) || 
+					maps[currentMap]->PlayerCollidedChest(player.x, player.y - player.currentWeapon.range + 1)) {
 					playerCollidedChest = true;
 				}
 				else if (maps[currentMap]->map[player.x][player.y - 1]->icon != '#') {
@@ -39,7 +40,8 @@ public:
 				break;
 			}
 			case KB_LEFT: {
-				if (maps[currentMap]->PlayerCollidedChest(player.x - player.currentWeapon.range, player.y)) {
+				if (maps[currentMap]->PlayerCollidedChest(player.x - player.currentWeapon.range, player.y) ||
+					maps[currentMap]->PlayerCollidedChest(player.x - player.currentWeapon.range + 1, player.y)) {
 					playerCollidedChest = true;
 				}
 				else if (maps[currentMap]->map[player.x - 1][player.y]->icon != '#') {
@@ -48,7 +50,8 @@ public:
 				break;
 			}
 			case KB_RIGHT: {
-				if (maps[currentMap]->PlayerCollidedChest(player.x + player.currentWeapon.range, player.y)) {
+				if (maps[currentMap]->PlayerCollidedChest(player.x + player.currentWeapon.range, player.y) ||
+					maps[currentMap]->PlayerCollidedChest(player.x + player.currentWeapon.range - 1, player.y)) {
 					playerCollidedChest = true;
 				}
 				if (maps[currentMap]->map[player.x + 1][player.y]->icon != '#') {
@@ -57,7 +60,8 @@ public:
 				break;
 			}
 			case KB_DOWN: {
-				if (maps[currentMap]->PlayerCollidedChest(player.x, player.y + player.currentWeapon.range)) {
+				if (maps[currentMap]->PlayerCollidedChest(player.x, player.y + player.currentWeapon.range) ||
+					maps[currentMap]->PlayerCollidedChest(player.x, player.y + player.currentWeapon.range - 1)) {
 					playerCollidedChest = true;
 				}
 				else if (maps[currentMap]->map[player.x][player.y + 1]->icon != '#') {
@@ -66,6 +70,8 @@ public:
 				break;
 			}
 			}
+
+			player.actionTime = time(NULL);
 		}
 
 		switch (inputManager->lastActionInput()) {
@@ -92,6 +98,7 @@ public:
 			maps[currentMap]->chests.erase(maps[currentMap]->chests.begin() + maps[currentMap]->collidedChest);
 			playerCollidedChest = false;
 		}
+		maps[currentMap]->AddNewChest(player);
 
 		//Update for the Drops:
 		if (maps[currentMap]->PlayerIsOnAnyDrop(player.x, player.y)) {

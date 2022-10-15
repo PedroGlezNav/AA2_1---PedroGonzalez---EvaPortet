@@ -42,8 +42,6 @@ public:
 		if (direction == Character::Directions::RIGHT) {
 			x++;
 		}
-
-		actionTime = time(NULL);
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
