@@ -68,4 +68,22 @@ public:
 			return;
 		}
 	}
+
+	void Parse(Json::Value jsonValue) {
+		this->lives = jsonValue["lives"].asInt();
+		this->x = jsonValue["x"].asInt();
+		this->y = jsonValue["y"].asInt();
+		this->coins = jsonValue["coins"].asInt();
+		this->potions = jsonValue["potions"].asInt();
+
+		switch (jsonValue["currentWeapon"].asString()) {
+
+		}
+
+
+	}
+
+	Json::Value ToJsonValue() {
+
+	}
 };
