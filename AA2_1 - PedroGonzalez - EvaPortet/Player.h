@@ -69,21 +69,39 @@ public:
 		}
 	}
 
-	void Parse(Json::Value jsonValue) {
-		this->lives = jsonValue["lives"].asInt();
-		this->x = jsonValue["x"].asInt();
-		this->y = jsonValue["y"].asInt();
-		this->coins = jsonValue["coins"].asInt();
-		this->potions = jsonValue["potions"].asInt();
-
-		switch (jsonValue["currentWeapon"].asString()) {
-
+	static Player* Parse(Json::Value jsonValue) {
+		Player* newPlayer = new Player();
+		try {
+			newPlayer->lives = jsonValue["lives"].asInt();
+			newPlayer->x = jsonValue["x"].asInt();
+			newPlayer->y = jsonValue["y"].asInt();
+			newPlayer->coins = jsonValue["coins"].asInt();
+			newPlayer->potions = jsonValue["potions"].asInt();
+			if (jsonValue["currentWeapon"].asString() == "Sword") {
+				newPlayer->currentWeapon = Sword();
+			}
+			else if (jsonValue["currentWeapon"].asString() == "Lance") {
+				newPlayer->currentWeapon = Lance();
+			}
 		}
 
+		catch (const std::exception&)
+		{
+			delete newPlayer;
+			return nullptr;
+		}
 
+		return newPlayer;
 	}
 
 	Json::Value ToJsonValue() {
-
+		Json::Value jsonValue;
+		jsonValue["lives"] = this->lives;
+		jsonValue["x"] = this->x;
+		jsonValue["y"] = this->y;
+		jsonValue["coins"] = this->coins;
+		jsonValue["potions"] = this->potions;
+		jsonValue["currentWeapon"] = this->currentWeapon.name;
+		return jsonValue;
 	}
 };

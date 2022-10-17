@@ -11,6 +11,7 @@ public:
 	
 	int currentMap;
 	int lastMap;
+	int timeToSave;
 	bool endGame = false;
 	bool playerCollidedChest = false;
 
@@ -84,9 +85,20 @@ public:
 			break;
 		}
 		}
-		
-
 		keyListenerThread->detach();
+
+		if (timeToSave + 4 <= time(NULL)) {
+			Json::Value newJsonValue;
+			newJsonValue["PlayerSave"] = player.ToJsonValue();
+
+			std::ofstream* jsonWriteFile = new std::ofstream("PlayerSave.json", std::ifstream::binary);
+
+			if (!jsonWriteFile->fail())
+			{
+				*jsonWriteFile << newJsonValue;
+				jsonWriteFile->close();
+			}
+		}
 
 		//Update for the Enemies:
 

@@ -18,6 +18,9 @@
 #include "ConsoleControl.h"
 
 void main() {
+	srand(time(NULL));
+
+	//SETTING GAME OBJECTS:
 	GameManager gameManager;
 	ConsoleControl consoleControl;
 
@@ -43,11 +46,24 @@ void main() {
 
 	gameManager.currentMap = 4;
 	gameManager.lastMap = 1;
+	gameManager.timeToSave = time(NULL);
 
 	Player player;
-	srand(time(NULL));
 	player.actionTime = time(NULL);
 
+	std::ifstream* jsonReadFile = new std::ifstream("PlayerSave.json", std::ifstream::binary);
+	if (!jsonReadFile->fail())
+	{
+		Json::Value jsonValue;
+		*jsonReadFile >> jsonValue;
+		jsonReadFile->close();
+
+		Player* recoverPlayer = Player::Parse(jsonValue["PlayerSave"]);
+		player = *recoverPlayer;
+	}
+
+
+	//GAME LOOP:
 	while (!player.isDead && !gameManager.endGame) {
 
 		if (!gameManager.maps.empty()) {

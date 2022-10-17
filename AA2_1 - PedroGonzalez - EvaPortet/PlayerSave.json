@@ -1,0 +1,11 @@
+{
+	"PlayerSave" : 
+	{
+		"coins" : 1,
+		"currentWeapon" : "Sword",
+		"lives" : 1,
+		"potions" : 3,
+		"x" : 1,
+		"y" : 2
+	}
+}
