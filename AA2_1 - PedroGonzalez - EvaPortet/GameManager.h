@@ -155,7 +155,7 @@ public:
 
 		catch (const std::exception&)
 		{
-			currentMap = 4;
+			currentMap = MIDDLE_CENTER;
 		}
 	}
 

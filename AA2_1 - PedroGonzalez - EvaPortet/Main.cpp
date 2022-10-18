@@ -44,13 +44,15 @@ void main() {
 	gameManager.maps.push_back(&downCenter);
 	gameManager.maps.push_back(&downRight);
 
-	gameManager.currentMap = 4;
-	gameManager.lastMap = 1;
+	gameManager.currentMap = MIDDLE_CENTER;
+	gameManager.lastMap = TOP_CENTER;
 	gameManager.timeToSave = time(NULL);
 
 	Player player;
 	player.actionTime = time(NULL);
 
+
+	//IMPOTING SAVINGS (IN CASE THEY EXIST):
 	std::ifstream* jsonPlayerReadFile = new std::ifstream("PlayerSave.json", std::ifstream::binary);
 	if (!jsonPlayerReadFile->fail())
 	{
