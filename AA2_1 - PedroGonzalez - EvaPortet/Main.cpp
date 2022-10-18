@@ -51,15 +51,25 @@ void main() {
 	Player player;
 	player.actionTime = time(NULL);
 
-	std::ifstream* jsonReadFile = new std::ifstream("PlayerSave.json", std::ifstream::binary);
-	if (!jsonReadFile->fail())
+	std::ifstream* jsonPlayerReadFile = new std::ifstream("PlayerSave.json", std::ifstream::binary);
+	if (!jsonPlayerReadFile->fail())
 	{
 		Json::Value jsonValue;
-		*jsonReadFile >> jsonValue;
-		jsonReadFile->close();
+		*jsonPlayerReadFile >> jsonValue;
+		jsonPlayerReadFile->close();
 
 		Player* recoverPlayer = Player::Parse(jsonValue["PlayerSave"]);
 		player = *recoverPlayer;
+	}
+
+	std::ifstream* jsonMapReadFile = new std::ifstream("CurrentMapSave.json", std::ifstream::binary);
+	if (!jsonMapReadFile->fail())
+	{
+		Json::Value jsonValue;
+		*jsonMapReadFile >> jsonValue;
+		jsonMapReadFile->close();
+
+		gameManager.Parse(jsonValue["CurrentMapSave"]);
 	}
 
 

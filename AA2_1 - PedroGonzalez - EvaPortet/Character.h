@@ -44,12 +44,7 @@ public:
 		}
 	}
 
-	void Draw(ConsoleControl& consoleControl) {
-		consoleControl.SetPosition(lastX, lastY);
-		std::cout << ' ';
-		consoleControl.SetPosition(x, y);
-		std::cout << icon;
-	}
+	virtual void Draw(ConsoleControl& consoleControl) = 0;
 
 	void GetDamage() {
 		if (lives > 1) {

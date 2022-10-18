@@ -25,6 +25,7 @@ public:
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
+		consoleControl.SetColor(ConsoleControl::ConsoleColor::DARKMAGENTA, ConsoleControl::ConsoleColor::BLACK);
 		consoleControl.SetPosition(x, y);
 		std::cout << icon;
 	}

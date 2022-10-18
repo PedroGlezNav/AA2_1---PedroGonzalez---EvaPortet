@@ -34,6 +34,17 @@ public:
 	}
 
 	void Draw(ConsoleControl& consoleControl) {
+		switch (type) {
+		case Type::Coin:
+			consoleControl.SetColor(ConsoleControl::ConsoleColor::YELLOW, ConsoleControl::ConsoleColor::BLACK);
+			break;
+		case Type::Lance:
+			consoleControl.SetColor(ConsoleControl::ConsoleColor::LIGHTGREY, ConsoleControl::ConsoleColor::BLACK);
+			break;
+		case Type::Potion:
+			consoleControl.SetColor(ConsoleControl::ConsoleColor::GREEN, ConsoleControl::ConsoleColor::BLACK);
+			break;
+		}
 		consoleControl.SetPosition(x, y);
 		std::cout << icon;
 	}

@@ -9,6 +9,7 @@ public:
 	int x, y;
 
 	void Draw(ConsoleControl& consoleControl) {
+		consoleControl.SetColor(ConsoleControl::ConsoleColor::DARKGREY, ConsoleControl::ConsoleColor::BLACK);
 		consoleControl.SetPosition(x, y);
 		std::cout << icon;
 	}

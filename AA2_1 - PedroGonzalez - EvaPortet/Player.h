@@ -27,6 +27,7 @@ public:
 	}
 
 	void DrawInventory(ConsoleControl& consoleControl) {
+		consoleControl.SetColor(ConsoleControl::ConsoleColor::LIGHTGREY, ConsoleControl::ConsoleColor::BLACK);
 		consoleControl.SetPosition(0, COLS + 3);
 		std::cout << "Coins: " << coins << " - ";
 		std::cout << "Lifes: " << lives << " - ";
@@ -34,6 +35,7 @@ public:
 		std::cout << "Weapon: " << currentWeapon.name << " - ";
 		std::cout << "X: " << x << " - ";
 		std::cout << "Y: " << y;
+
 		consoleControl.SetPosition(0, COLS + 4);
 		std::cout << "Press Esc to exit the game.";
 	}
@@ -67,6 +69,15 @@ public:
 		else {
 			return;
 		}
+	}
+
+	void Draw(ConsoleControl& consoleControl) override {
+		consoleControl.SetColor(ConsoleControl::ConsoleColor::WHITE, ConsoleControl::ConsoleColor::BLACK);
+		consoleControl.SetPosition(lastX, lastY);
+		std::cout << ' ';
+		consoleControl.SetColor(ConsoleControl::ConsoleColor::DARKYELLOW, ConsoleControl::ConsoleColor::BLACK);
+		consoleControl.SetPosition(x, y);
+		std::cout << icon;
 	}
 
 	static Player* Parse(Json::Value jsonValue) {

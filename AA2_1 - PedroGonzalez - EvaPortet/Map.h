@@ -122,25 +122,62 @@ public:
 	}
 
 	void AddNewChest(Player& player) {
-		if (chestSpawnTime + 30 <= time(NULL) && chests.size() < 3) {
+		if (chestSpawnTime + 16 <= time(NULL) && chests.size() < 3) {
 			Chest* newChest = new Chest();
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn to the left of Player:
-				newChest->x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
-				break;
+			{
+				if (player.x == 1) {
+					delete newChest;
+					newChest = nullptr;
+					return;
+				}
+				else {
+					newChest->x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
+				}
+			}
+			break;
 			case 2: //Spawn to the right of Player:
-				newChest->x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
-				break;
+			{
+				if (player.x == ROWS - 1) {
+					delete newChest;
+					newChest = nullptr;
+					return;
+				}
+				else {
+					newChest->x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
+				}
+			}
+			break;
 			}
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn over Player:
-				newChest->y = rand() % ((player.y - 1) - (1) + 1) + (1);
-				break;
+			{
+				if (player.y == 1) {
+					delete newChest;
+					newChest = nullptr;
+					return;
+				}
+				else {
+					newChest->y = rand() % ((player.y - 1) - (1) + 1) + (1);
+				}
+			}
+			break;
+				
 			case 2: //Spawn under Player:
-				newChest->y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
-				break;
+			{
+				if (player.y == COLS - 1) {
+					delete newChest;
+					newChest = nullptr;
+					return;
+				}
+				else {
+					newChest->y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
+				}
+			}
+			break;
 			}
 
 			chests.push_back(newChest);

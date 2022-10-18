@@ -88,15 +88,26 @@ public:
 		keyListenerThread->detach();
 
 		if (timeToSave + 4 <= time(NULL)) {
-			Json::Value newJsonValue;
-			newJsonValue["PlayerSave"] = player.ToJsonValue();
+			Json::Value newPlayerJsonValue;
+			newPlayerJsonValue["PlayerSave"] = player.ToJsonValue();
 
-			std::ofstream* jsonWriteFile = new std::ofstream("PlayerSave.json", std::ifstream::binary);
+			std::ofstream* jsonWritePlayerFile = new std::ofstream("PlayerSave.json", std::ifstream::binary);
 
-			if (!jsonWriteFile->fail())
+			if (!jsonWritePlayerFile->fail())
 			{
-				*jsonWriteFile << newJsonValue;
-				jsonWriteFile->close();
+				*jsonWritePlayerFile << newPlayerJsonValue;
+				jsonWritePlayerFile->close();
+			}
+
+			Json::Value newMapJsonValue;
+			newMapJsonValue["CurrentMapSave"] = this->ToJsonValue();
+
+			std::ofstream* jsonWriteMapFile = new std::ofstream("CurrentMapSave.json", std::ifstream::binary);
+
+			if (!jsonWriteMapFile->fail())
+			{
+				*jsonWriteMapFile << newMapJsonValue;
+				jsonWriteMapFile->close();
 			}
 		}
 
@@ -135,5 +146,22 @@ public:
 
 		//Draw for the UI:
 		player.DrawInventory(consoleControl);
+	}
+
+	void Parse(Json::Value jsonValue) {
+		try {
+			currentMap = jsonValue["currentMap"].asInt();
+		}
+
+		catch (const std::exception&)
+		{
+			currentMap = 4;
+		}
+	}
+
+	Json::Value ToJsonValue() {
+		Json::Value jsonValue;
+		jsonValue["currentMap"] = this->currentMap;
+		return jsonValue;
 	}
 };
