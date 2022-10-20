@@ -95,6 +95,23 @@ public:
 		}
 	}
 
+	void UpdateEnemies(Player &player) {
+		if (!enemies.empty()) {
+			for (int iter = 0; iter < enemies.size(); iter++) {
+				if (enemies[iter]->actionTime + 2 <= time(NULL)) {
+					enemies[iter]->ArtfIntel(player, this->portals, this->enemies, this->chests, this->drops);
+					enemies[iter]->actionTime = time(NULL);
+				}
+				if (enemies[iter]->isDead) {
+					enemies[iter]->Drop();
+					drops.push_back(&enemies[iter]->drop);
+					delete enemies[iter];
+					enemies.erase(enemies.begin() + iter);
+				}
+			}
+		}
+	}
+
 	void AddNewEnemies(Player &player) {
 		if (enemySpawnTime + 3 == time(NULL) && enemies.size() < 5) {
 

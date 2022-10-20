@@ -112,7 +112,7 @@ public:
 		}
 
 		//Update for the Enemies:
-
+		maps[currentMap]->UpdateEnemies(player);
 
 		//Update for the Chests:
 		if (playerCollidedChest) {

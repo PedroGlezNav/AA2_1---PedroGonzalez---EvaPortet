@@ -11,6 +11,7 @@ public:
 	int lives;
 	int actionTime;
 	char icon = 0;
+	bool isDead;
 
 	Character() {
 		x = 0;
@@ -20,11 +21,16 @@ public:
 
 		lives = 1;
 		actionTime = 0;
+		isDead = false;
 	}
 
-	virtual void Attack() = 0;
+	void Attack(Character& characterToAttack) {
+		characterToAttack.GetDamage();
+	}
 
-	virtual void Die() = 0;
+	virtual void Die() {
+		isDead = true;
+	}
 
 	void Move(Character::Directions direction) {
 		lastX = x;

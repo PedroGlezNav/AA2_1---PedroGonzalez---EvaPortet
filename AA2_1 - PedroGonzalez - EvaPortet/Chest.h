@@ -31,7 +31,7 @@ public:
 	}
 	
 	void Drop() {
-		drop.type = (Drop::Type)(rand() % ((3) - (0) + 1) + (0)); //rng->((max)-(min)+1)+(min)
+		drop.type = (Drop::Type)(rand() % ((2) - (0) + 1) + (0)); //rng->((max)-(min)+1)+(min)
 		drop.DefineIcon();
 		drop.x = this->x;
 		drop.y = this->y;

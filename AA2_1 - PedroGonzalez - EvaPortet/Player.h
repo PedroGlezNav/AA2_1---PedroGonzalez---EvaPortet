@@ -10,20 +10,14 @@ public:
 	Weapon currentWeapon;
 	int potions;
 	int coins;
-	bool isDead;
 
 	Player() : Character() {
 		currentWeapon = Sword();
 		potions = 1;
 		coins = 0;
-		isDead = false;
 		x = ROWS/2;
 		y = COLS/2;
 		icon = 'J';
-	}
-
-	void Attack() override {
-
 	}
 
 	void DrawInventory(ConsoleControl& consoleControl) {
@@ -38,10 +32,6 @@ public:
 
 		consoleControl.SetPosition(0, COLS + 4);
 		std::cout << "Press Esc to exit the game.";
-	}
-
-	void Die() override {
-		isDead = true;
 	}
 
 	void GetItem(Drop gotDrop){
