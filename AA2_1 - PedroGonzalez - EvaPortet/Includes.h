@@ -20,3 +20,4 @@
 #define DOWN_LEFT 6
 #define DOWN_CENTER 7
 #define DOWN_RIGHT 8
+#define INEXISTING_MAP 9

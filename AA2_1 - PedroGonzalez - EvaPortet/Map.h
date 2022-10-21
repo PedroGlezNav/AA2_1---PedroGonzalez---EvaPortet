@@ -98,14 +98,17 @@ public:
 	void UpdateEnemies(Player &player) {
 		if (!enemies.empty()) {
 			for (int iter = 0; iter < enemies.size(); iter++) {
+
 				if (enemies[iter]->actionTime + 2 <= time(NULL)) {
-					enemies[iter]->ArtfIntel(player, this->portals, this->enemies, this->chests, this->drops);
+					std::thread* updateEnemiesThread = new std::thread(&Enemy::ArtfIntel, std::ref(player), 
+						std::ref(this->portals), std::ref(this->enemies), std::ref(this->chests), 
+						std::ref(this->drops), std::ref(this->map), enemies[iter]);
 					enemies[iter]->actionTime = time(NULL);
+					updateEnemiesThread->detach();
 				}
 				if (enemies[iter]->isDead) {
 					enemies[iter]->Drop();
 					drops.push_back(&enemies[iter]->drop);
-					delete enemies[iter];
 					enemies.erase(enemies.begin() + iter);
 				}
 			}
@@ -113,33 +116,63 @@ public:
 	}
 
 	void AddNewEnemies(Player &player) {
-		if (enemySpawnTime + 3 == time(NULL) && enemies.size() < 5) {
+		if (enemySpawnTime + 12 <= time(NULL) && enemies.size() < 5) {
 
-			Enemy newEnemy;
-			newEnemy.actionTime = time(NULL);
+			Enemy* newEnemy = new Enemy();
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn to the left of Player:
-				newEnemy.x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
+				if (player.x == 1) {
+					delete newEnemy;
+					newEnemy = nullptr;
+					return;
+				}
+				else {
+					newEnemy->x = rand() % ((player.x - 1) - (1) + 1) + (1); //rng->((max)-(min)+1)+(min)
+				}
 				break;
 			case 2: //Spawn to the right of Player:
-				newEnemy.x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
+				if (player.x == ROWS - 1) {
+					delete newEnemy;
+					newEnemy = nullptr;
+					return;
+				}
+				else {
+					newEnemy->x = rand() % ((ROWS - 1) - (player.x + 1) + 1) + (player.x + 1);
+				}
 				break;
 			}
 
 			switch (rand() % 2 + 1) {
 			case 1: //Spawn over Player:
-				newEnemy.y = rand() % ((player.y - 1) - (1) + 1) + (1);
+				if (player.y == 1) {
+					delete newEnemy;
+					newEnemy = nullptr;
+					return;
+				}
+				else {
+					newEnemy->y = rand() % ((player.y - 1) - (1) + 1) + (1);
+				}
 				break;
 			case 2: //Spawn under Player:
-				newEnemy.y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
+				if (player.y == COLS - 1) {
+					delete newEnemy;
+					newEnemy = nullptr;
+					return;
+				}
+				else {
+					newEnemy->y = rand() % ((COLS - 1) - (player.y + 1) + 1) + (player.y + 1);
+				}
 				break;
 			}
+
+			enemies.push_back(newEnemy);
+			newEnemy->actionTime = time(NULL);
 		}
 	}
 
 	void AddNewChest(Player& player) {
-		if (chestSpawnTime + 16 <= time(NULL) && chests.size() < 3) {
+		if (chestSpawnTime + 5 <= time(NULL) && chests.size() < 3) {
 			Chest* newChest = new Chest();
 
 			switch (rand() % 2 + 1) {

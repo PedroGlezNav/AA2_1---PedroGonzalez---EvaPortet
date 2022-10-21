@@ -8,6 +8,8 @@ class Enemy : public Character {
 public:
 	Drop drop;
 
+	std::mutex* newDirectionMutex = new std::mutex();
+
 	Enemy() : Character() {
 		drop.type = Drop::Type::Unknown;
 		icon = 'E';
@@ -22,7 +24,9 @@ public:
 		std::cout << icon;
 	}
 
-	void ArtfIntel(Player& player, std::vector<Portal*>& mapPortals, std::vector<Enemy*>& mapEnemies, std::vector<Chest*>& mapChest, std::vector<Drop*>& mapDrops) {
+	void ArtfIntel(Player& player, std::vector<Portal*>& mapPortals, std::vector<Enemy*>& mapEnemies, 
+		std::vector<Chest*>& mapChest, std::vector<Drop*>& mapDrops, std::vector<std::vector<Node&>> mapNodes) {
+
 		int newdirection = (Directions)(rand() % ((3) - (0) + 1) + (0));
 		
 		int newY, newX;
@@ -50,7 +54,7 @@ public:
 		}
 
 		//Test if the temporary newX an newY collide with any of the elements of the game:
-		bool collidedWithPortal = false, collidedWithEnemy = false, collidedWithChest = false, collidedWithDrop = false;
+		bool collidedWithPortal = false, collidedWithEnemy = false, collidedWithChest = false, collidedWithDrop = false, collidedWithWall = false;
 
 		if (newX == player.x && newY == player.y) {
 				Attack(player);
@@ -84,8 +88,14 @@ public:
 			}
 		}
 
-		if (!collidedWithPortal && !collidedWithEnemy && !collidedWithChest && !collidedWithDrop) {
+		if (mapNodes[newX][newY].icon == '#') {
+			collidedWithWall = true;
+		}
+
+		if (!collidedWithPortal && !collidedWithEnemy && !collidedWithChest && !collidedWithDrop && !collidedWithWall) {
+			newDirectionMutex->lock();
 			Move((Directions)newdirection);
+			newDirectionMutex->unlock();
 		}
 	}
 

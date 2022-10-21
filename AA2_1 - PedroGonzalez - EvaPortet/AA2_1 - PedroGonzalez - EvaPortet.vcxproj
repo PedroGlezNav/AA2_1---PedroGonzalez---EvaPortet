@@ -140,6 +140,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Includes.h" />
+    <ClInclude Include="InexistingMap.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Lance.h" />
     <ClInclude Include="Map.h" />

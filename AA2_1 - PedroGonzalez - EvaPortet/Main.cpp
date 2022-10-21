@@ -2,6 +2,7 @@
 
 #include "GameManager.h"
 #include "Map.h"
+#include "InexistingMap.h"
 #include "TopLeft.h"
 #include "TopCenter.h"
 #include "TopRight.h"
@@ -33,6 +34,7 @@ void main() {
 	DownLeft downLeft;
 	DownCenter downCenter;
 	DownRight downRight;
+	InexistingMap inexistingMap;
 
 	gameManager.maps.push_back(&topLeft);
 	gameManager.maps.push_back(&topCenter);
@@ -43,9 +45,10 @@ void main() {
 	gameManager.maps.push_back(&downLeft);
 	gameManager.maps.push_back(&downCenter);
 	gameManager.maps.push_back(&downRight);
+	gameManager.maps.push_back(&inexistingMap);
 
 	gameManager.currentMap = MIDDLE_CENTER;
-	gameManager.lastMap = TOP_CENTER;
+	gameManager.lastMap = INEXISTING_MAP;
 	gameManager.timeToSave = time(NULL);
 
 	Player player;
@@ -93,7 +96,7 @@ void main() {
 		}
 
 		else {
-			std::cout << "Not menus available :(\n";
+			std::cout << "No maps available :(\n";
 			return;
 		}
 	}

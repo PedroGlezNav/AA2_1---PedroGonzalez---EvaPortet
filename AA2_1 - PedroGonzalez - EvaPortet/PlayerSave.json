@@ -1,11 +1,11 @@
 {
 	"PlayerSave" : 
 	{
-		"coins" : 16,
+		"coins" : 0,
 		"currentWeapon" : "Lance",
 		"lives" : 1,
-		"potions" : 6,
-		"x" : 1,
+		"potions" : 1,
+		"x" : 2,
 		"y" : 1
 	}
 }
