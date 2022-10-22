@@ -100,11 +100,11 @@ public:
 			for (int iter = 0; iter < enemies.size(); iter++) {
 
 				if (enemies[iter]->actionTime + 2 <= time(NULL)) {
-					std::thread* updateEnemiesThread = new std::thread(&Enemy::ArtfIntel, std::ref(player), 
+					/*std::thread* updateEnemiesThread = new std::thread(&Enemy::ArtfIntel, std::ref(player),
 						std::ref(this->portals), std::ref(this->enemies), std::ref(this->chests), 
 						std::ref(this->drops), std::ref(this->map), enemies[iter]);
 					enemies[iter]->actionTime = time(NULL);
-					updateEnemiesThread->detach();
+					updateEnemiesThread->detach();*/
 				}
 				if (enemies[iter]->isDead) {
 					enemies[iter]->Drop();

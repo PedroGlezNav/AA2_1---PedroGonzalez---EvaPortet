@@ -112,8 +112,9 @@ public:
 		}
 
 		//Update for the Enemies:
-		maps[currentMap]->UpdateEnemies(player);
-		maps[currentMap]->AddNewEnemies(player);
+		/*maps[currentMap]->UpdateEnemies(player);
+		maps[currentMap]->AddNewEnemies(player);*/
+		//LOS PROBLEMAS INDICADOS EN EL README EXPLICAN LA RAZÓN POR LA QUE NO SE HAN PODIDO IMPLEMENTAR LOS ENEMIGOS.
 
 		//Update for the Chests:
 		if (playerCollidedChest) {

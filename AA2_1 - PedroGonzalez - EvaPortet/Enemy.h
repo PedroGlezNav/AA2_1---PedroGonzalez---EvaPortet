@@ -1,4 +1,6 @@
 #pragma once
+#include "Includes.h"
+
 #include "Character.h"
 #include "Weapon.h"
 #include "Drop.h"
@@ -25,7 +27,7 @@ public:
 	}
 
 	void ArtfIntel(Player& player, std::vector<Portal*>& mapPortals, std::vector<Enemy*>& mapEnemies, 
-		std::vector<Chest*>& mapChest, std::vector<Drop*>& mapDrops, std::vector<std::vector<Node&>> mapNodes) {
+		std::vector<Chest*>& mapChest, std::vector<Drop*>& mapDrops/*, std::vector<std::vector<Node*>> mapNodes*/) {
 
 		int newdirection = (Directions)(rand() % ((3) - (0) + 1) + (0));
 		
@@ -54,7 +56,8 @@ public:
 		}
 
 		//Test if the temporary newX an newY collide with any of the elements of the game:
-		bool collidedWithPortal = false, collidedWithEnemy = false, collidedWithChest = false, collidedWithDrop = false, collidedWithWall = false;
+		bool collidedWithPortal = false, collidedWithEnemy = false, 
+			collidedWithChest = false, collidedWithDrop = false/*, collidedWithWall = false*/;
 
 		if (newX == player.x && newY == player.y) {
 				Attack(player);
@@ -88,11 +91,11 @@ public:
 			}
 		}
 
-		if (mapNodes[newX][newY].icon == '#') {
+		/*if (mapNodes[newX][newY].icon == '#') {
 			collidedWithWall = true;
-		}
+		}*/
 
-		if (!collidedWithPortal && !collidedWithEnemy && !collidedWithChest && !collidedWithDrop && !collidedWithWall) {
+		if (!collidedWithPortal && !collidedWithEnemy && !collidedWithChest && !collidedWithDrop /* && !collidedWithWall*/) {
 			newDirectionMutex->lock();
 			Move((Directions)newdirection);
 			newDirectionMutex->unlock();
